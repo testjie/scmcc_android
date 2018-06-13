@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<map>
+
+    <!--devices of testing info -->
+    <devices platformName="Android">
+        <!--device lists -->
+        <device deviceName="192.168.2.102:5555" udid="192.168.2.102:5555" platformName="Android" 
+        	platformVersion="5.1" appPackage="com.vcyber.MazdaClubForUser" appActivity="com.rzqc.mazda.activity.StartActivity" url= "http://localhost:4723/wd/hub">魅蓝Note</device>
+
+        <device deviceName="192.168.2.103:5555" udid="192.168.2.103:5555" platformName="Android" 
+        	platformVersion="6.0" appPackage="com.vcyber.MazdaClubForUser" appActivity="com.rzqc.mazda.activity.StartActivity" url = "http://localhost:4725/wd/hub">Nexus5</device>
+
+    </devices>
+    
+</map>

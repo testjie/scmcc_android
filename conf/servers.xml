@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<map>
+    <!--server of appium info -->
+
+    <server serverName="test">
+        <!--appium_severs lists -->
+        <port port="4723" address="localhost">测试环境1</port>
+        <port port="4725" address="localhost">测试环境2</port>
+    </server>
+</map>

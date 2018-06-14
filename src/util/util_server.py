@@ -12,7 +12,6 @@ class BaseServers:
 
 
 class Servers:
-
     def __init__(self, port, address, server_name):
         self.port = port
         self.address = address

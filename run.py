@@ -36,7 +36,7 @@ class runner():
         """ 获取并启动服务端
         """
     
-        server_name = "test"
+        server_name = "src"
         appium_server_threads = [] # server线程池
         server_xpath = environment_path + "servers.xml"
         server_info = BaseServers(server_xpath, server_name).get_serverMap()
@@ -44,7 +44,7 @@ class runner():
         
         
         # 载入appiumServer线程池
-        for server in server_info.get("test"):
+        for server in server_info.get("src"):
             logs = logs_path + server.get_address() + "-" + server.get_port() + "-" + CommonUtils.get_current_time() + ".txt"
             server_thread = threading.Thread(target=appium_server.start_server, args=((server.get_address(), server.get_port(), logs,)))
             appium_server_threads.append(server_thread)
@@ -92,7 +92,7 @@ class runner():
             for case in CommonUtils().get＿all_testcase_by_classpath(CommonUtils().get_windows_testcases_path() , "TestCase_"):
                 exec("from com.mazda.testcase."+ case +" import " + case)
                 test_suite.append(ParametrizedTestCase.parametrize(eval(case), driver, po_path + "po.xml"))  
-                print("add all testcases success!")
+                print("add all case success!")
             
             
             test_suites.addTests(test_suite)    

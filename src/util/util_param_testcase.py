@@ -1,13 +1,7 @@
-'''
-Created on 2017年3月11日
-
-@author: SNake
-'''
-
+# -*- coding: utf-8 -*-
+__author__ = 'snake'
 
 import unittest    
-
-
 
 
 class ParametrizedTestCase(unittest.TestCase):    
@@ -27,5 +21,4 @@ class ParametrizedTestCase(unittest.TestCase):
         suite = unittest.TestSuite()    
         for name in testnames:    
             suite.addTest(testcase_klass(name, driver=driver, po_path=po_path))    
-        return suite    
-    
+        return suite

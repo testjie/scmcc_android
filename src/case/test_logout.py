@@ -1,8 +1,5 @@
-'''
-Created on 2017年3月10日
-
-@author: SNake
-'''
+# -*- coding: utf-8 -*-
+__author__ = 'snake'
 
 from com.mazda.testcase.ParametrizedTestCase import ParametrizedTestCase
 

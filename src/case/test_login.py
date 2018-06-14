@@ -1,8 +1,6 @@
-'''
-Created on 2017年3月8日
+# -*- coding: utf-8 -*-
+__author__ = 'snake'
 
-@author: SNake
-'''
 from time import sleep
 
 from com.mazda.bll.Login import Login

@@ -1,8 +1,5 @@
-'''
-Created on 2017年3月7日
-
-@author: snake
-'''
+# -*- coding: utf-8 -*-
+__author__ = 'snake'
 
 from com.mazda.environment.Servers import Servers
 from com.mazda.environment.Devices import Devices
@@ -13,7 +10,7 @@ import xml.etree.ElementTree as ET
 class XmlUtils:
     
     @staticmethod
-    def readPOXMLDocument(xml_path, page_name):
+    def get_po_by_xml(xml_path, page_name):
         tree = None
         root = None
         page_hashMap = {}
@@ -21,8 +18,8 @@ class XmlUtils:
         try:
             tree = ET.parse(xml_path)
             root = tree.getroot()
-        except Exception:
-            raise "解析数据XML时发生异常，请检查XML格式"
+        except :
+            raise Exception("解析数据XML时发生异常，请检查XML格式")
         
         
         # 遍历XML所有节点，并获取指定名称的所有Locator
@@ -43,7 +40,7 @@ class XmlUtils:
 
 
     @staticmethod
-    def readDevicesXMLDocument(xml_path, platform_name):
+    def get_devices_by_xml(xml_path, platform_name):
         tree = None
         root = None
         devices_hashMap = {}
@@ -52,8 +49,8 @@ class XmlUtils:
         try:
             tree = ET.parse(xml_path)
             root = tree.getroot()
-        except Exception:
-            raise "解析数据XML时发生异常，请检查XML格式"
+        except:
+            raise Exception("解析数据XML时发生异常，请检查XML格式")
         
         # 遍历XML所有节点，并获取指定名称的所有Device
         for child in root:
@@ -74,18 +71,17 @@ class XmlUtils:
     
     
     @staticmethod
-    def readServersXMLDocument(xml_path, server_name):
+    def get_server_by_xml(xml_path, server_name):
         tree = None
         root = None
         servers_hashMap = {}
         
-        
         try:
             tree = ET.parse(xml_path)
             root = tree.getroot()
-        except Exception:
-            raise "解析数据XML时发生异常，请检查XML格式"
-        
+        except :
+            raise Exception("解析数据XML时发生异常，请检查XML格式")
+
         # 遍历XML所有节点，并获取指定名称的所有Device
         for child in root:
             servers = []
@@ -93,8 +89,7 @@ class XmlUtils:
                 for c in child:
                     server = Servers(c.get("port"), c.get("address"), c.text)
                     servers.append(server)
-                
-                
+
                 # 不考虑devices为空
                 if (len(servers) != 0):
                     servers_hashMap[child.get("serverName")] = servers
@@ -102,9 +97,8 @@ class XmlUtils:
         return servers_hashMap
     
 
-"""解析XML，实现PO层"""
-if __name__ == "__main__":
-    print(XmlUtils.readPOXMLDocument('../po/po.xml', "settingPage"))
-    print(XmlUtils.readDevicesXMLDocument('../environment/devices.xml', "Android"))
-    print(XmlUtils.readServersXMLDocument('../environment/servers.xml', "test"))
-    
+    """解析XML，实现PO层"""
+    if __name__ == "__main__":
+        print(XmlUtils.readPOXMLDocument('../po/po.xml', "settingPage"))
+        print(XmlUtils.readDevicesXMLDocument('../environment/devices.xml', "Android"))
+        print(XmlUtils.readServersXMLDocument('../environment/servers.xml', "src"))

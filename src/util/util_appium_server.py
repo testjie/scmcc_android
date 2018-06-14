@@ -1,10 +1,7 @@
-'''
-Created on 2017年3月6日
+# -*- coding: utf-8 -*-
+__author__ = 'snake'
 
-@author: snake
-'''
 import os
-
 
 class AppiumServer:
     

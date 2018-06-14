@@ -1,9 +1,14 @@
-'''
-Created on 2017年3月7日
+# -*- coding: utf-8 -*-
+__author__ = 'snake'
 
-@author: snake
-'''
 
+class BaseDevices:
+
+    def __init__(self, xml_path, platform_name):
+        self.devices_map = XmlUtils.readDevicesXMLDocument(xml_path, platform_name)
+
+    def get_deviceMap(self):
+        return self.devices_map
 
 class Devices:
     def __init__(self, device_name, udid, platform_name, platform_version, app_package, app_activity, cellphone_name, url):

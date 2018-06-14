@@ -1,14 +1,11 @@
-'''
-Created on 2017年3月13日
+# -*- coding: utf-8 -*-
+__author__ = 'snake'
 
-@author: SNake
-'''
 import os
-
 
 class AdbUtils:
 
-    @staticmethod        
+    @staticmethod
     def connector(device):
         AdbUtils.start_server()
         os.system("adb connect " + device)
@@ -24,8 +21,7 @@ class AdbUtils:
     @staticmethod
     def stop_server():
         os.system("adb kill-server")
-        
-        
+
     @staticmethod
     def restart_server():
         AdbUtils.stop_server()
@@ -35,5 +31,3 @@ class AdbUtils:
     def reconncet_adb(device):
         AdbUtils.disconnector(device)
         AdbUtils.connector(device)
-        
-        

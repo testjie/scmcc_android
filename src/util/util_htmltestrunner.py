@@ -5,7 +5,7 @@ __version__ = "0.8.3"
 
 """
 A TestRunner for use with the Python unit testing framework. It
-generates a HTML report to show the result at a glance.
+generates a HTML test_report to show the result at a glance.
 
 The simplest way to use this is to invoke its main method. E.g.
 
@@ -26,7 +26,7 @@ HTMLTestRunner is a counterpart to unittest's TextTestRunner. E.g.
     runner = HTMLTestRunner.HTMLTestRunner(
                 stream=fp,
                 title='My unit test',
-                description='This demonstrates the report output by HTMLTestRunner.'
+                description='This demonstrates the test_report output by HTMLTestRunner.'
                 )
 
     # Use an external stylesheet.
@@ -95,7 +95,7 @@ Version in 0.8.0
 
 Version in 0.7.1
 * Back port to Python 2.3 (Frank Horowitz).
-* Fix missing scroll bars in detail log (Podi).
+* Fix missing scroll bars in detail test_logs (Podi).
 """
 
 # TODO: color stderr
@@ -150,9 +150,9 @@ stderr_redirector = OutputRedirector(sys.stderr)
 
 class Template_mixin(object):
     """
-    Define a HTML template for report customerization and generation.
+    Define a HTML template for test_report customerization and generation.
 
-    Overall structure of an HTML report
+    Overall structure of an HTML test_report
 
     HTML
     +------------------------+
@@ -334,13 +334,13 @@ function close_shots(obj) {
     </div>
 </div>
 %(heading)s
-%(report)s
+%(test_report)s
 %(ending)s
 
 </body>
 </html>
 """
-    # variables: (title, generator, stylesheet, heading, report, ending)
+    # variables: (title, generator, stylesheet, heading, test_report, ending)
 
     # ------------------------------------------------------------------------
     # Stylesheet
@@ -416,7 +416,7 @@ a.popup_link:hover {
 }
 
 }
-/* -- report ------------------------------------------------------------------------ */
+/* -- test_report ------------------------------------------------------------------------ */
 #show_detail_line {
     margin-top: 3ex;
     margin-bottom: 1ex;
@@ -443,7 +443,7 @@ a.popup_link:hover {
 .failCase   { color: #c60; font-weight: bold; }
 .errorCase  { color: #c00; font-weight: bold; }
 .hiddenRow  { display: none; }
-.testcase   { margin-left: 2em; }
+.case   { margin-left: 2em; }
 
 
 /* -- ending ---------------------------------------------------------------------- */
@@ -540,7 +540,7 @@ a.popup_link:hover {
 
     REPORT_TEST_WITH_OUTPUT_TMPL = r"""
 <tr id='%(tid)s' class='%(Class)s'>
-    <td ><div class='testcase'>%(desc)s</div></td>
+    <td ><div class='case'>%(desc)s</div></td>
     <td colspan='5' align='center'>
 
     <!--css div popup start-->
@@ -566,7 +566,7 @@ a.popup_link:hover {
 
     REPORT_TEST_NO_OUTPUT_TMPL = r"""
 <tr id='%(tid)s' class='%(Class)s'>
-    <td><div class='testcase'>%(desc)s</div></td>
+    <td><div class='case'>%(desc)s</div></td>
     <td colspan='5' align='center'><span class='status %(style)s'>%(status)s</span></td>
     <td>%(img)s</td>
 </tr>
@@ -787,7 +787,7 @@ class HTMLTestRunner(Template_mixin):
 
     def getReportAttributes(self, result):
         """
-        Return report attributes as a list of (name, value).
+        Return test_report attributes as a list of (name, value).
         Override this to add custom attributes.
         """
         startTime = str(self.startTime)[:19]

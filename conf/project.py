@@ -5,37 +5,6 @@ import os
 import sys
 
 
-class BaseConfig:
-    HOST = "0.0.0.0"
-    JSON_AS_ASCII = False           # json 中文支持
-    BABEL_DEFAULT_LOCALE = 'zh'
-    SECRET_KEY = os.urandom(24)     # SESSION配置
+APPIUM_HOME = "C:/Program Files/Appium"
 
-
-# 开发环境
-class DevelopmentConfig(BaseConfig):
-    DEBUG = True
-
-
-# 线上发布环境
-class ProductionConfig(BaseConfig):
-    DEBUG = False
-
-
-config = {
-    "DevelopmentConfig": DevelopmentConfig,
-    "ProductionConfig": ProductionConfig
-    }
-
-db_config = {
-    'host': '127.0.0.1',
-    'port': 3306,
-    'user': 'root',
-    'password': '123456',
-    'db': 'captcha',
-    'charset': 'utf8mb4'
-}
-
-
-UPLOADS_PATH = sys.path[1] + "/apk/uploads/"
-CNN_WAP_PATH = "C:/Users/SNake/PycharmProjects/fuck_captchas/apk/cnn/wap/"
+APPIUM_SERVER_HOME = APPIUM_HOME + "/resources/app/node_modules/appium/build/libs/main.js"

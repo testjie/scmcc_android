@@ -76,7 +76,7 @@ def run(self):
         test_suite = []
         test_suites = unittest.TestSuite()
         for case in CommonUtils().get＿all_testcase_by_classpath(CommonUtils().get_windows_testcases_path() , "TestCase_"):
-            exec("from com.mazda.testcase."+ case +" import " + case)
+            exec("from com.mazda.case."+ case +" import " + case)
             test_suite.append(ParametrizedTestCase.parametrize(eval(case), driver, po_path + "po.xml"))
             print("add all case success!")
 

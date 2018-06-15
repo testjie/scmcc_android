@@ -4,8 +4,8 @@
 #### appium-server
     
     1. 下载地址：
-    https://bitbucket.org/appium/appium.app/downloads/
-        --- AppiumForWindows_1_4_16_1.zip
+    https://github.com/appium/appium-desktop/releases/download/v1.6.2/appium-desktop-setup-1.6.2.exe
+    
         
     2. 环境变量设置
     path：

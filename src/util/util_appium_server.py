@@ -3,6 +3,7 @@ __author__ = 'snake'
 
 import os
 
+
 class AppiumServer:
     def __init__(self, host_name, host_port=4723, conn_type="usb"):
         self.host_name = host_name
@@ -15,7 +16,7 @@ class AppiumServer:
         # command = "appium -a %s -p %s --no-reset --session-override" % (host_ip, host_port)
         if self.conn_type == "usb":
             command = "appium -a %s -p %s --no-reset --session-override" % (self.host_name, self.host_port)
-        if self.conn_type == "ip":
+        if self.conn_type == "wireless":
             command = "appium -a %s -p %s --no-reset --session-override" % (self.host_name, self.host_port)
         print(command)
         os.system(command)

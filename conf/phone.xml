@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<map>
+    <!-- 本地开发环境 -->
+    <server type="local">
+        <item deviceName="1f09cafe" platformName="Android" platformVersion="5.1"
+              appPackage="com.vcyber.MazdaClubForUser" appActivity="com.rzqc.mazda.activity.StartActivity"
+              url= "http://localhost:4723/wd/hub">魅蓝</item>
+
+        <item deviceName="71MBBLE25DZU" platformName="Android" platformVersion="7.1"
+              appPackage="com.vcyber.MazdaClubForUser" appActivity="com.rzqc.mazda.activity.StartActivity"
+              url= "http://localhost:4723/wd/hub">vivo</item>
+    </server>
+
+    <!-- 本地开发环境 -->
+    <server type="product">
+        <item deviceName="1f09cafe" platformName="Android" platformVersion="5.1"
+              appPackage="com.vcyber.MazdaClubForUser" appActivity="com.rzqc.mazda.activity.StartActivity"
+              url= "http://localhost:4723/wd/hub">魅蓝</item>
+
+        <item deviceName="71MBBLE25DZU" platformName="Android" platformVersion="7.1"
+              appPackage="com.vcyber.MazdaClubForUser" appActivity="com.rzqc.mazda.activity.StartActivity"
+              url= "http://localhost:4723/wd/hub">vivo</item>
+    </server>
+
+
+</map>

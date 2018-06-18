@@ -36,7 +36,7 @@ def run(self):
 
     server_name = "src"
     appium_server_threads = [] # server线程池
-    server_xpath = environment_path + "servers.xml"
+    server_xpath = environment_path + "server.xml"
     server_info = BaseServers(server_xpath, server_name).get_serverMap()
 
     # 载入appiumServer线程池
@@ -59,7 +59,7 @@ def run(self):
     """
     platform_name = "Android"
     appium_start_threads = []
-    device_xmlPath = environment_path + "devices.xml"
+    device_xmlPath = environment_path + "phone.xml"
     device_info = BaseDevices(device_xmlPath, platform_name).get_deviceMap()
 
     # 获取并启动多个设备

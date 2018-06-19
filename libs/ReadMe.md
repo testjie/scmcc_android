@@ -1,13 +1,13 @@
 ### 环境依赖
 
-#### appium-server
-    
-    1. 下载地址：
-    https://bitbucket.org/appium/appium.app/downloads/
-        --- AppiumForWindows_1_4_16_1.zip
-        
-    2. 环境变量设置
-    path：
+#### 安装nodejs
+
+#### 安装npm
+
+#### 安装appium-server
+    使用power shell
+    npm --registry https://registry.npm.taobao.org install appium
+
 
 #### android-sdk-tools
 

@@ -19,7 +19,16 @@ from com.mazda.utils.AppiumServer import AppiumServer
 from com.mazda.utils.CommonUtils import CommonUtils
 
 
-def run(self):
+from src.util.util_appium_server import AppiumServer
+
+def run():
+    # 重启server
+    appium_server = AppiumServer()
+    appium_server.restart_server()
+
+
+
+def run_old():
 
     utils = CommonUtils()
     appium_server = AppiumServer()

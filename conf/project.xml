@@ -5,7 +5,7 @@
     <!-- 本地开发环境 -->
     <config type="local">
         <item name="projectHome">C:/Users/SNake/PycharmProjects/scmcc_android/</item>
-        <item name="appiumServerHome">C:/Program Files/Appium/resources/app/node_modules/appium/build/lib/main.js</item>
+        <item name="appiumServerHome">C:/Users/SNake/AppData/Local/Programs/Appium/resources/app/node_modules/appium/build/lib/main.js</item>
     </config>
 
 

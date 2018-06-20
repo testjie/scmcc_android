@@ -1,6 +1,11 @@
 ### 环境依赖
 
 
+#### 0. python
+    
+    1. 推荐3.6环境，这个不用介绍了吧
+
+
 #### 1. nodejs
     1. 下载和安装教程
     https://www.cnblogs.com/zhouyu2017/p/6485265.html

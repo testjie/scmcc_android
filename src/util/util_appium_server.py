@@ -2,8 +2,7 @@
 __author__ = 'snake'
 
 import os
-from util_xml import get_server_config
-from util_xml import get_project_config
+from src.util.util_xml import get_project_config
 
 
 class AppiumServer:
@@ -41,5 +40,5 @@ class AppiumServer:
 
 
 if __name__ == "__main__":
-    appium = AppiumServer(host_port=4123)
+    appium = AppiumServer()
     appium.start_server()

@@ -9,7 +9,7 @@
 
         <item deviceName="71MBBLE25DZU" platformName="Android" platformVersion="7.1"
               appPackage="com.sunrise.scmbhc" appActivity="com.sunrise.scmbhc.ui.activity.loading.LoadingActivity"
-              url= "http://localhost:4723/wd/hub">vivo</item>
+              url= "http://localhost:4725/wd/hub">vivo</item>
     </server>
 
     <!-- 本地开发环境 -->
@@ -20,7 +20,7 @@
 
         <item deviceName="71MBBLE25DZU" platformName="Android" platformVersion="7.1"
               appPackage="com.sunrise.scmbhc" appActivity="com.sunrise.scmbhc.ui.activity.loading.LoadingActivity"
-              url= "http://localhost:4723/wd/hub">vivo</item>
+              url= "http://localhost:4725/wd/hub">vivo</item>
     </server>
 
 

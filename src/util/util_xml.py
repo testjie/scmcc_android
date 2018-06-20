@@ -90,11 +90,11 @@ def get_phone_config(config_type="product", name="all"):
                 server = {}
                 server["name"] = c.text
                 server["url"] = c.get("url")
-                server["appPackage"] = c.get("appPackage")
-                server["appActivity"] = c.get("appActivity")
-                server["deviceName"] = c.get("deviceName")
-                server["platformName"] = c.get("platformName")
-                server["platformVersion"] = c.get("platformVersion")
+                server["app_package"] = c.get("appPackage")
+                server["app_activity"] = c.get("appActivity")
+                server["device_name"] = c.get("deviceName")
+                server["platform_name"] = c.get("platformName")
+                server["platform_version"] = c.get("platformVersion")
 
                 results.append(server)
 
@@ -105,11 +105,11 @@ def get_phone_config(config_type="product", name="all"):
                     server = {}
                     server["name"] = c.text
                     server["url"] = c.get("url")
-                    server["appPackage"] = c.get("appPackage")
-                    server["appActivity"] = c.get("appActivity")
-                    server["deviceName"] = c.get("deviceName")
-                    server["platformName"] = c.get("platformName")
-                    server["platformVersion"] = c.get("platformVersion")
+                    server["app_package"] = c.get("appPackage")
+                    server["app_activity"] = c.get("appActivity")
+                    server["device_name"] = c.get("deviceName")
+                    server["platform_name"] = c.get("platformName")
+                    server["platform_version"] = c.get("platformVersion")
 
                     results.append(server)
 

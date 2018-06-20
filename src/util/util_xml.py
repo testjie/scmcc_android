@@ -59,14 +59,22 @@ def get_server_config(config_type="product", name="all"):
         # 某个节点下全部
         if child.get("type") == config_type and name.lower() == "all":
             for c in child:
-                server = {"name": c.text, "address": c.get("address"), "port": c.get("port")}
+                server = {}
+                server["name"] = c.text
+                server["port"] = c.get("port")
+                server["address"] = c.get("address")
+
                 results.append(server)
 
         # 某个节点的指定参数
         if child.get("type") == config_type and name.lower() != "all":
             for c in child:
                 if c.text == name:
-                    server = {"name": c.text, "address": c.get("address"), "port": c.get("port")}
+                    server = {}
+                    server["name"] = c.text
+                    server["port"] = c.get("port")
+                    server["address"] = c.get("address")
+
                     results.append(server)
 
         return results

@@ -87,31 +87,31 @@ def get_phone_config(config_type="product", name="all"):
         # 某个节点下全部
         if child.get("type") == config_type and name.lower() == "all":
             for c in child:
-                server = {}
-                server["name"] = c.text
-                server["url"] = c.get("url")
-                server["app_package"] = c.get("appPackage")
-                server["app_activity"] = c.get("appActivity")
-                server["device_name"] = c.get("deviceName")
-                server["platform_name"] = c.get("platformName")
-                server["platform_version"] = c.get("platformVersion")
+                phone = {}
+                phone["name"] = c.text
+                phone["url"] = c.get("url")
+                phone["app_package"] = c.get("appPackage")
+                phone["app_activity"] = c.get("appActivity")
+                phone["device_name"] = c.get("deviceName")
+                phone["platform_name"] = c.get("platformName")
+                phone["platform_version"] = c.get("platformVersion")
 
-                results.append(server)
+                results.append(phone)
 
         # 某个节点的指定参数
         if child.get("type") == config_type and name.lower() != "all":
             for c in child:
                 if c.text == name:
-                    server = {}
-                    server["name"] = c.text
-                    server["url"] = c.get("url")
-                    server["app_package"] = c.get("appPackage")
-                    server["app_activity"] = c.get("appActivity")
-                    server["device_name"] = c.get("deviceName")
-                    server["platform_name"] = c.get("platformName")
-                    server["platform_version"] = c.get("platformVersion")
+                    phone = {}
+                    phone["name"] = c.text
+                    phone["url"] = c.get("url")
+                    phone["app_package"] = c.get("appPackage")
+                    phone["app_activity"] = c.get("appActivity")
+                    phone["device_name"] = c.get("deviceName")
+                    phone["platform_name"] = c.get("platformName")
+                    phone["platform_version"] = c.get("platformVersion")
 
-                    results.append(server)
+                    results.append(phone)
 
         return results
 

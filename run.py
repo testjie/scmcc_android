@@ -23,6 +23,8 @@ from src.util.util_appium_server import AppiumServer
 
 def run():
     # 重启server
+    # todo  1. 并行启动server
+    # todo  2. 并行运行devices
     appium_server = AppiumServer()
     appium_server.restart_server()
 

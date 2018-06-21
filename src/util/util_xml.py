@@ -62,7 +62,6 @@ def get_phone_config(config_type="product", name="all"):
             for c in child:
                 phone = {}
                 phone["name"] = c.text
-                phone["url"] = c.get("url")
                 phone["app_package"] = c.get("appPackage")
                 phone["app_activity"] = c.get("appActivity")
                 phone["device_name"] = c.get("deviceName")
@@ -77,7 +76,6 @@ def get_phone_config(config_type="product", name="all"):
                 if c.text == name:
                     phone = {}
                     phone["name"] = c.text
-                    phone["url"] = c.get("url")
                     phone["app_package"] = c.get("appPackage")
                     phone["app_activity"] = c.get("appActivity")
                     phone["device_name"] = c.get("deviceName")

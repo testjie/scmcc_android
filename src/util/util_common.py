@@ -3,6 +3,7 @@ __author__ = 'snake'
 
 import os
 import time
+import importlib
 
 
 def data_format_print(str):
@@ -19,12 +20,15 @@ def get_all_testcases(classpath, kw="test_"):
     通过路径获取所有case
     :param classpath:
     :param keywords:
-    :return:
+    :return: [{pyfile_name: class_name}]
     """
     testcases = []
     for _dir in os.listdir(classpath):
         if kw in _dir:
-            testcases.append(_dir.split(".")[0])
+            py_name = _dir.split(".")[0]
+            m1 = importlib.import_module("src.case." + py_name)
+            testcases.append({py_name: dir(m1)[1]})
+
     return testcases
 
 

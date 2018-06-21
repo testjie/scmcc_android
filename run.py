@@ -4,45 +4,77 @@ __author__ = 'snake'
 import time
 import unittest
 import threading
-import importlib
+import xmlrunner
 
 from src.util.util_xml import get_phone_config
 from src.util.util_adb import restart_adb_server
 from src.util.util_common import get_all_testcases
 from src.util.util_appium_server import AppiumServer
+from src.util.util_appium_driver import AppiumDriver
 from src.util.util_param_testcase import ParametrizedTestCase
 
 
-def start_appium_servers(devices):
-    server_process = []
-    ap, bp, sp = 4721, 4722, 4723   # appium-port, bootstrap-port, selendroid-port,
-
-    # 多线程
+def start_appium_servers(devices, ap=4721, bp=4722, sp=4723):
+    """
+    线程
+    :param devices:
+    :param ap:
+    :param bp:
+    :param sp:
+    :return:
+    """
+    # 将每个设备的appium-server添加到线程池
+    server_threads, appium_obj_threads = [], []
     for _ in range(0, len(devices)):
         ap, bp, sp = ap + 3, bp + 3, sp + 3
-        appium_server = AppiumServer(port=ap, bp=bp, sp=sp)
+        appium_server = AppiumServer(ap=ap, bp=bp, sp=sp)
+        appium_obj_threads.append(appium_server)
         t = threading.Thread(target=appium_server.start_server)
-        server_process.append(t)
+        server_threads.append(t)
 
-    # 启动
-    for p in server_process:
-        p.start()
+    # 多线程启动appium_server
+    for t in server_threads:
+        t.start()
 
-    return 4721, 4722, 4723
+    # 返回appium server对象，用于关闭线程
+    return appium_obj_threads
 
 
-def run_cases(devices=[], ports=()):
-    test_suite = []
+def run_cases(devices=[], ap=4721):
+    test_suite, threadings = [], []
     test_suites = unittest.TestSuite()
-    for device in devices:
-        for case in get_all_testcases(classpath="./src/case/"):
-            m1 = importlib.import_module("src.case." + case)
-            aclass = getattr(m1, "sites_pybuild")
-            print(aclass)
 
-            return
-            test_suite.append(ParametrizedTestCase.parametrize(eval(case), driver))
-            print("add all case success!")
+    for device in devices:
+        # 获取设备信息并生成driver对象
+        ap = ap + 3
+        device_name = device["device_name"]
+        app_package = device["app_package"]
+        app_activity = device["app_activity"]
+        platform_name = device["platform_name"]
+        platform_version = device["platform_version"]
+        url = "http://localhost:" + str(ap) + "/wd/hub"
+
+        # 获取driver对象
+        driver = AppiumDriver(device_name, platform_name, platform_version, app_package, app_activity, url)
+
+        # 分别添加每一个设备的suite
+        for case in get_all_testcases(classpath="./src/case/"):
+            for k, v in case.items():
+                exec("from src.case." + k + " import " + v)
+                test_suite.append(ParametrizedTestCase.parametrize(eval(v), driver))
+
+        # 将case添加进线程池
+        print("add all case success!")
+        test_suites.addTests(test_suite)
+        runner = xmlrunner.XMLTestRunner()
+        thread = threading.Thread(target=runner.run, args=(test_suites,))
+        threadings.append(thread)
+        test_suite.clear()
+
+    # 多线程并发运行case
+    for t in threadings:
+        t.start()
+        t.join()
 
 
 def run():
@@ -50,15 +82,18 @@ def run():
     restart_adb_server()
 
     # 多线程运行appium-server
+    ap, bp, sp = 4721, 4722, 4723   # appium-port, bootstrap-port, selendroid-port,
     devices = get_phone_config()
-    ap, bp, sp = start_appium_servers(devices)
+    appium_obj_threads = start_appium_servers(devices, ap=ap, bp=bp, sp=sp)
 
-    # 等待10s
+    # 等待10s,防止初选server没有启动完再运行所有case
     time.sleep(10)
-    run_cases(devices=devices, ports=(ap, bp, sp))
+    run_cases(devices=devices, ap=ap)
 
-    # todo  2. 并行运行devices
-    print("xxxx")
+    # 关闭appium-server
+    print("关闭appium server...")
+    appium_obj_threads.stop_server()[0].stop_server()
+
 
 
 def run_old():

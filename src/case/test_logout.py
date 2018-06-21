@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 __author__ = 'snake'
 
-from com.mazda.testcase.ParametrizedTestCase import ParametrizedTestCase
+from src.util.util_param_testcase import ParametrizedTestCase
 
 
 class TestCase_Logout(ParametrizedTestCase):

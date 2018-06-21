@@ -1,33 +1,64 @@
-'''
-Created on 2017年3月8日
+# -*- coding: utf-8 -*-
+__author__ = 'snake'
 
-@author: SNake
-'''
-import datetime
-import threading
-from time import sleep
 import time
 import unittest
+import threading
+import importlib
 
-from com.mazda.environment.BaseDevices import BaseDevices
-from com.mazda.environment.BaseServers import BaseServers
-from com.mazda.testcase.ParametrizedTestCase import ParametrizedTestCase
-from com.mazda.utils import HTMLTestRunnerPlus
-from com.mazda.utils.AdbUtils import AdbUtils
-from com.mazda.utils.AppiumDriver import AppiumDriver
-from com.mazda.utils.AppiumServer import AppiumServer
-from com.mazda.utils.CommonUtils import CommonUtils
-
-
+from src.util.util_xml import get_phone_config
+from src.util.util_adb import restart_adb_server
+from src.util.util_common import get_all_testcases
 from src.util.util_appium_server import AppiumServer
+from src.util.util_param_testcase import ParametrizedTestCase
+
+
+def start_appium_servers(devices):
+    server_process = []
+    ap, bp, sp = 4721, 4722, 4723   # appium-port, bootstrap-port, selendroid-port,
+
+    # 多线程
+    for _ in range(0, len(devices)):
+        ap, bp, sp = ap + 3, bp + 3, sp + 3
+        appium_server = AppiumServer(port=ap, bp=bp, sp=sp)
+        t = threading.Thread(target=appium_server.start_server)
+        server_process.append(t)
+
+    # 启动
+    for p in server_process:
+        p.start()
+
+    return 4721, 4722, 4723
+
+
+def run_cases(devices=[], ports=()):
+    test_suite = []
+    test_suites = unittest.TestSuite()
+    for device in devices:
+        for case in get_all_testcases(classpath="./src/case/"):
+            m1 = importlib.import_module("src.case." + case)
+            aclass = getattr(m1, "sites_pybuild")
+            print(aclass)
+
+            return
+            test_suite.append(ParametrizedTestCase.parametrize(eval(case), driver))
+            print("add all case success!")
+
 
 def run():
-    # 重启server
-    # todo  1. 并行启动server
-    # todo  2. 并行运行devices
-    appium_server = AppiumServer()
-    appium_server.restart_server()
+    # 重启adb server 防止adb for windows抽风
+    restart_adb_server()
 
+    # 多线程运行appium-server
+    devices = get_phone_config()
+    ap, bp, sp = start_appium_servers(devices)
+
+    # 等待10s
+    time.sleep(10)
+    run_cases(devices=devices, ports=(ap, bp, sp))
+
+    # todo  2. 并行运行devices
+    print("xxxx")
 
 
 def run_old():
@@ -91,7 +122,6 @@ def run_old():
             test_suite.append(ParametrizedTestCase.parametrize(eval(case), driver, po_path + "po.xml"))
             print("add all case success!")
 
-
         test_suites.addTests(test_suite)
         screenShot_path = result_path
         device_name = device.get_cellPhoneName()
@@ -108,7 +138,6 @@ def run_old():
     for thread in appium_start_threads:
         thread.start()
         thread.join()
-
 
     appium_server.stop_server()
     return

@@ -11,23 +11,21 @@ def data_format_print(str):
     :param str:
     :return:
     """
-    print (get_current_time() +" : "+ str)
+    print(get_current_time() + ":" + str)
 
 
-def get_all_testcase_by_classpath(self, classpath, keywords):
+def get_all_testcases(classpath, kw="test_"):
     """
     通过路径获取所有case
-    :param self:
     :param classpath:
     :param keywords:
     :return:
     """
-    testcase_name = []
+    testcases = []
     for _dir in os.listdir(classpath):
-        if keywords in _dir:
-            testcase_name.append(_dir.split(".")[0])
-
-    return testcase_name
+        if kw in _dir:
+            testcases.append(_dir.split(".")[0])
+    return testcases
 
 
 def get_current_time():
@@ -35,17 +33,9 @@ def get_current_time():
     获取当前时间
     :return:
     """
-    return time.strftime("%Y-%m-%d-%H-%M-%S",time.localtime(time.time()))
+    return time.strftime("%Y-%m-%d-%H-%M-%S", time.localtime(time.time()))
     
     
+if __name__ == "__main__":
+    print(get_all_testcases(classpath="../case/", kw="test"))
 
-
-
-
-
-
-
-
-
-
-    

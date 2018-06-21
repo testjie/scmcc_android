@@ -30,4 +30,4 @@
 
 #### 4. 项目依赖
 
-    pip install requirements.txt
+    pip install -r requirements.txt

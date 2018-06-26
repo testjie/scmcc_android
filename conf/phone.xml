@@ -6,11 +6,11 @@
         <!--<item deviceName="71MBBLE25DZU" platformName="Android" platformVersion="5.1"-->
               <!--appPackage="com.sunrise.scmbhc" appActivity="com.sunrise.scmbhc.ui.activity.loading.LoadingActivity">魅蓝</item>-->
 
-        <item deviceName="1f09cafe" platformName="Android" platformVersion="7.1"
-              appPackage="com.sunrise.scmbhc" appActivity="com.sunrise.scmbhc.ui.activity.loading.LoadingActivity">vivox6</item>
+        <!--<item deviceName="1f09cafe" platformName="Android" platformVersion="7.1"-->
+              <!--appPackage="com.sunrise.scmbhc" appActivity="com.sunrise.scmbhc.ui.activity.loading.LoadingActivity">vivox6</item>-->
 
-        <!--<item deviceName="b8d3dab2" platformName="Android" platformVersion="6.0"-->
-              <!--appPackage="com.sunrise.scmbhc" appActivity="com.sunrise.scmbhc.ui.activity.loading.LoadingActivity">oppor9s</item>-->
+        <item deviceName="b8d3dab2" platformName="Android" platformVersion="6.0"
+              appPackage="com.sunrise.scmbhc" appActivity="com.sunrise.scmbhc.ui.activity.loading.LoadingActivity">oppor9s</item>
     </phones>
 
     <!-- 线上产品环境 -->
@@ -18,11 +18,11 @@
         <!--<item deviceName="71MBBLE25DZU" platformName="Android" platformVersion="5.1"-->
               <!--appPackage="com.sunrise.scmbhc" appActivity="com.sunrise.scmbhc.ui.activity.loading.LoadingActivity">魅蓝</item>-->
 
-        <item deviceName="1f09cafe" platformName="Android" platformVersion="7.1"
-              appPackage="com.sunrise.scmbhc" appActivity="com.sunrise.scmbhc.ui.activity.loading.LoadingActivity">vivox6</item>
+        <!--<item deviceName="1f09cafe" platformName="Android" platformVersion="7.1"-->
+              <!--appPackage="com.sunrise.scmbhc" appActivity="com.sunrise.scmbhc.ui.activity.loading.LoadingActivity">vivox6</item>-->
 
-        <!--<item deviceName="b8d3dab2" platformName="Android" platformVersion="6.0"-->
-              <!--appPackage="com.sunrise.scmbhc" appActivity="com.sunrise.scmbhc.ui.activity.loading.LoadingActivity">oppor9s</item>-->
+        <item deviceName="b8d3dab2" platformName="Android" platformVersion="6.0"
+              appPackage="com.sunrise.scmbhc" appActivity="com.sunrise.scmbhc.ui.activity.loading.LoadingActivity">oppor9s</item>
     </phones>
 
 </map>

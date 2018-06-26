@@ -4,7 +4,7 @@ __author__ = 'snake'
 from src.util.util_param_testcase import ParametrizedTestCase
 
 
-class TestCase_Logout(ParametrizedTestCase):
+class TestCaseLogout(ParametrizedTestCase):
 
     def test_case4(self):
         print(self.driver)

@@ -33,16 +33,13 @@ class AppiumServer:
         os.system(command)
 
     def kill_task(self, task_name): 
-        command = "taskkill /f /im " + task_name
-        print("kill %s task ..." %task_name)
+        command = "taskkill /f /im  node.exe"
+        print("kill %s task ..." % node.exe)
         os.system(command)
         
     def stop_server(self):
         self.kill_task("node.exe")
 
-    def restart_server(self):
-        self.stop_server()
-        self.start_server()
 
 
 if __name__ == "__main__":

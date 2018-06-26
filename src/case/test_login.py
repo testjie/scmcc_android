@@ -5,7 +5,7 @@ from time import sleep
 from src.util.util_param_testcase import ParametrizedTestCase
 
 
-class TestCase_Login(ParametrizedTestCase):
+class TestCaseLogin(ParametrizedTestCase):
     def setUp(self):
         ParametrizedTestCase.setUp(self)
         assert False

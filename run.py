@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 __author__ = 'snake'
 
+import os
 import time
 import unittest
 import threading
@@ -14,6 +15,11 @@ from src.util.util_appium_driver import AppiumDriver
 from src.util.util_param_testcase import ParametrizedTestCase
 
 
+def kill_task():
+    command = "taskkill /f /im node.exe"
+    os.system(command)
+
+
 def start_appium_servers(devices, ap=4721, bp=4722, sp=4723):
     """
     线程
@@ -24,20 +30,16 @@ def start_appium_servers(devices, ap=4721, bp=4722, sp=4723):
     :return:
     """
     # 将每个设备的appium-server添加到线程池
-    server_threads, appium_obj_threads = [], []
+    server_threads = []
     for _ in range(0, len(devices)):
         ap, bp, sp = ap + 3, bp + 3, sp + 3
         appium_server = AppiumServer(ap=ap, bp=bp, sp=sp)
-        appium_obj_threads.append(appium_server)
         t = threading.Thread(target=appium_server.start_server)
         server_threads.append(t)
 
     # 多线程启动appium_server
     for t in server_threads:
         t.start()
-
-    # 返回appium server对象，用于关闭线程
-    return appium_obj_threads
 
 
 def run_cases(devices=[], ap=4721):
@@ -84,7 +86,7 @@ def run():
     # 多线程运行appium-server
     ap, bp, sp = 4721, 4722, 4723   # appium-port, bootstrap-port, selendroid-port,
     devices = get_phone_config()
-    appium_obj_threads = start_appium_servers(devices, ap=ap, bp=bp, sp=sp)
+    start_appium_servers(devices, ap=ap, bp=bp, sp=sp)
 
     # 等待10s,防止初选server没有启动完再运行所有case
     time.sleep(10)
@@ -92,8 +94,7 @@ def run():
 
     # 关闭appium-server
     print("关闭appium server...")
-    appium_obj_threads.stop_server()[0].stop_server()
-
+    kill_task()
 
 
 def run_old():

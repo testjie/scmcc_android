@@ -39,6 +39,3 @@
     return _regeneratorRuntime.awrap(helpers.pushUnlock(adb));
     替换成这行：
     return context$1$0.abrupt('return', false)
-    
-    
-    2. appium

@@ -7,11 +7,12 @@
 
 #### 3. 如何使用
 
+#### 4. 持续优化
+    1. 测试结果报告截图
+    2. 自动发送邮件
 
-#### 4. 问题
-    1. 禁止appium重复安装Unlock、Setting、Android Input Manager等apk，防止第三方垃圾rom（VIVO/OPPO）出现弹窗提示的问题
-
-    <del>暂时的解决方法：干掉unicodeKeyboard参数</del>
+#### 5. 问题
+    1. 禁止appium重复安装Unlock、Setting、Android Input Manager等apk，防止第三方rom出现弹窗提示的问题
     
     step1:
     ~\Appium\resources\app\node_modules\appium\node_modules\appium-android-driver\lib\android-helpers.js
@@ -39,3 +40,6 @@
     return _regeneratorRuntime.awrap(helpers.pushUnlock(adb));
     替换成这行：
     return context$1$0.abrupt('return', false)
+
+    2. driver.close() 出现报错，待解决
+    selenium.common.exceptions.WebDriverException: Message: Method has not yet been implemented

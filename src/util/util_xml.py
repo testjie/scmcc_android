@@ -13,10 +13,10 @@ def get_xml_root(path):
     """
     try:
         tree = ET.parse(path)
-        return tree.getroot()
     except Exception as e:
-        raise e
         raise Exception("解析数据XML时发生异常，请检查XML格式")
+
+    return tree.getroot()
 
 
 def get_project_config(config_type="product", item="all"):
@@ -61,7 +61,7 @@ def get_phone_config(config_type="product", name="all"):
         if child.get("type") == config_type and name.lower() == "all":
             for c in child:
                 phone = {}
-                phone["name"] = c.text
+                phone["band"] = c.text
                 phone["app_package"] = c.get("appPackage")
                 phone["app_activity"] = c.get("appActivity")
                 phone["device_name"] = c.get("deviceName")
@@ -75,7 +75,7 @@ def get_phone_config(config_type="product", name="all"):
             for c in child:
                 if c.text == name:
                     phone = {}
-                    phone["name"] = c.text
+                    phone["band"] = c.text
                     phone["app_package"] = c.get("appPackage")
                     phone["app_activity"] = c.get("appActivity")
                     phone["device_name"] = c.get("deviceName")

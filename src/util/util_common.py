@@ -32,12 +32,22 @@ def get_all_testcases(classpath, kw="test_"):
     return testcases
 
 
-def get_current_time():
+def get_current_time(type="d"):
     """
     获取当前时间
+    :param type:
     :return:
     """
-    return time.strftime("%Y-%m-%d-%H-%M-%S", time.localtime(time.time()))
+    if type == "d":
+        format_str = "%Y-%m-%d"
+    if type == "H":
+        format_str = "%Y-%m-%d-%H"
+    if type == "M":
+        format_str = "%Y-%m-%d-%H-%M"
+    if type == "S":
+        format_str = "%Y-%m-%d-%H-%M-%S"
+
+    return time.strftime(format_str, time.localtime(time.time()))
     
     
 if __name__ == "__main__":

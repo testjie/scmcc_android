@@ -5,17 +5,13 @@ from time import sleep
 from src.util.util_param_testcase import ParametrizedTestCase
 
 
-class v(ParametrizedTestCase):
+class TestCaseLogin(ParametrizedTestCase):
     def setUp(self):
         ParametrizedTestCase.setUp(self)
-        assert False
+        assert self.driver is not None
 
     def test_login_success(self):
-        assert False
+        assert self.driver is not None
 
     def test_login_failed(self):
-        print("I'm test_case3")
-
-
-if __name__ == "__main__":
-    print(ParametrizedTestCase.parametrize(TestCase_Login, None))
+        assert self.driver is not None

@@ -5,13 +5,14 @@ import os
 import time
 import unittest
 import threading
-import xmlrunner
 
 from src.util.util_xml import get_phone_config
 from src.util.util_adb import restart_adb_server
+from src.util.util_common import get_current_time
 from src.util.util_common import get_all_testcases
 from src.util.util_appium_server import AppiumServer
 from src.util.util_appium_driver import AppiumDriver
+from src.util.util_htmltestrunner import HTMLTestRunner
 from src.util.util_param_testcase import ParametrizedTestCase
 
 
@@ -57,7 +58,8 @@ def run_cases(devices=[], ap=4721):
         url = "http://localhost:" + str(ap) + "/wd/hub"
 
         # 获取driver对象
-        driver = AppiumDriver(device_name, platform_name, platform_version, app_package, app_activity, url)
+        ad = AppiumDriver(device_name, platform_name, platform_version, app_package, app_activity, url)
+        driver = ad.get_android_driver()
 
         # 分别添加每一个设备的suite
         for case in get_all_testcases(classpath="./src/case/"):
@@ -66,9 +68,21 @@ def run_cases(devices=[], ap=4721):
                 test_suite.append(ParametrizedTestCase.parametrize(eval(v), driver))
 
         # 将case添加进线程池
-        print("add all case success!")
+        print("设备【{}】添加所有用例成功!".format(device["band"]))
         test_suites.addTests(test_suite)
-        runner = xmlrunner.XMLTestRunner()
+
+        # 创建文件夹
+        floder_path = "./report/{}/".format(get_current_time())
+        if not os.path.exists(floder_path):
+            os.makedirs(floder_path)
+
+        # 使用htmltestrunner执行cases
+        retry = 1
+        report_desc = "【{}】for掌厅测试描述".format(device["band"])
+        report_title = "【{}】for掌厅测试报告".format(device["band"])
+        fb = open(floder_path + device["band"] + "-report.html", "wb+")
+        runner = HTMLTestRunner(stream=fb, title=report_title, description=report_desc, retry=retry)
+
         thread = threading.Thread(target=runner.run, args=(test_suites,))
         threadings.append(thread)
         test_suite.clear()
@@ -77,6 +91,9 @@ def run_cases(devices=[], ap=4721):
     for t in threadings:
         t.start()
         t.join()
+
+
+    print()
 
 
 def run():
@@ -88,95 +105,12 @@ def run():
     devices = get_phone_config()
     start_appium_servers(devices, ap=ap, bp=bp, sp=sp)
 
-    # 等待10s,防止初选server没有启动完再运行所有case
+    # 等待10s,防止出现server没有启动完就运行case
     time.sleep(10)
     run_cases(devices=devices, ap=ap)
 
     # 关闭appium-server
-    print("关闭appium server...")
     kill_task()
-
-
-def run_old():
-
-    utils = CommonUtils()
-    appium_server = AppiumServer()
-
-    environment_path = utils.get_windows_environment_path()
-    testcast_path = utils.get_windows_testcases_path()
-    logs_path = utils.get_windows_logs_path()
-    result_path = utils.get_windows_result_path()
-    po_path = utils.get_windows_po_path()
-
-    appium_server.stop_server()
-    """ 获取并启动服务端
-    """
-
-    server_name = "src"
-    appium_server_threads = [] # server线程池
-    server_xpath = environment_path + "server.xml"
-    server_info = BaseServers(server_xpath, server_name).get_serverMap()
-
-    # 载入appiumServer线程池
-    for server in server_info.get("src"):
-        logs = logs_path + server.get_address() + "-" + server.get_port() + "-" + CommonUtils.get_current_time() + ".txt"
-        server_thread = threading.Thread(target=appium_server.start_server, args=((server.get_address(), server.get_port(), logs,)))
-        appium_server_threads.append(server_thread)
-
-    # 启动appiumServer线程池
-    for thread in appium_server_threads:
-        thread.start()
-
-    CommonUtils.data_format_print("启动appium服务器中，等待10秒...")
-    sleep(10)
-
-    "重启adb"
-    AdbUtils.start_server()
-
-    """ 获取并启动服务端
-    """
-    platform_name = "Android"
-    appium_start_threads = []
-    device_xmlPath = environment_path + "phone.xml"
-    device_info = BaseDevices(device_xmlPath, platform_name).get_deviceMap()
-
-    # 获取并启动多个设备
-    for device in device_info.get("Android"):
-        "重新连接adb"
-
-        AdbUtils.reconncet_adb(device.get_deviceName())
-        driver = AppiumDriver(device.get_deviceName(), device.get_udid(), device.get_platformName(),
-                              device.get_platformVersion(), device.get_appPackage(), device.get_appActivity(),
-                              device.get_url()).get_android_driver()
-
-        # 导入测试集/执行测试套件/整合测试报告
-        runner = None
-        test_suite = []
-        test_suites = unittest.TestSuite()
-        for case in CommonUtils().get＿all_testcase_by_classpath(CommonUtils().get_windows_testcases_path() , "TestCase_"):
-            exec("from com.mazda.case."+ case +" import " + case)
-            test_suite.append(ParametrizedTestCase.parametrize(eval(case), driver, po_path + "po.xml"))
-            print("add all case success!")
-
-        test_suites.addTests(test_suite)
-        screenShot_path = result_path
-        device_name = device.get_cellPhoneName()
-        screenShot_path = screenShot_path + device_name +"-" + utils.get_current_time()
-
-        fb = open(result_path + device.get_cellPhoneName() + "-" + CommonUtils.get_current_time() +"-testReport.html","wb")
-        runner = HTMLTestRunnerPlus.HTMLTestRunner(fb, 1, "测试报告", "测试描述", device.get_deviceName(), screenShot_path)
-        thread = threading.Thread(target=runner.run, args=(test_suites,))
-
-        appium_start_threads.append(thread)
-        test_suite.clear()
-
-    # 启动设备线程池
-    for thread in appium_start_threads:
-        thread.start()
-        thread.join()
-
-    appium_server.stop_server()
-    return
 
 
 if __name__ =="__main__":  

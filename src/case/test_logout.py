@@ -5,17 +5,19 @@ from src.util.util_param_testcase import ParametrizedTestCase
 
 
 class TestCaseLogout(ParametrizedTestCase):
+    def setUp(self):
+        ParametrizedTestCase.setUp(self)
+        assert self.driver is not None
 
     def test_case4(self):
-        print(self.driver)
         print("I'm test_case1")
-        
+        assert self.driver is None
+
     def test_case5(self):
-        assert None
-        print("I'm test_case2")
+        assert self.driver is not None
 
     def test_case6(self):
-        print("I'm test_case3")
+        assert self.driver is not None
 
 
 

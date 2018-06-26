@@ -16,8 +16,6 @@ class AppiumServer:
         self.sp = sp
         self.conn_type = conn_type
 
-        print("init appium server ...")
-        
     def start_server(self):
         appium_server_path = get_project_config("local", "appiumServerHome")["appiumServerHome"]
         # usb连接
@@ -31,15 +29,6 @@ class AppiumServer:
 
         # 执行命令
         os.system(command)
-
-    def kill_task(self, task_name): 
-        command = "taskkill /f /im  node.exe"
-        print("kill %s task ..." % node.exe)
-        os.system(command)
-        
-    def stop_server(self):
-        self.kill_task("node.exe")
-
 
 
 if __name__ == "__main__":

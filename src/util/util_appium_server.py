@@ -17,7 +17,7 @@ class AppiumServer:
         self.conn_type = conn_type
 
     def start_server(self):
-        appium_server_path = get_project_config("local", "appiumServerHome")["appiumServerHome"]
+        appium_server_path = get_project_config(config_type="local", item="appiumServerHome")["appiumServerHome"]
         # usb连接
         if self.conn_type == "usb":
             command = "node %s --address %s --port %s --bootstrap-port %s --selendroid-port %s --no-reset " \

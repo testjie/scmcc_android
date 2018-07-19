@@ -8,6 +8,7 @@ import threading
 
 from src.util.util_xml import get_phone_config
 from src.util.util_adb import restart_adb_server
+from src.util.util_adb import is_connect_devices
 from src.util.util_common import get_current_time
 from src.util.util_common import get_all_testcases
 from src.util.util_appium_server import AppiumServer
@@ -99,10 +100,18 @@ def run_cases(devices=[], ap=4721):
 def run():
     # 重启adb server 防止adb for windows抽风
     restart_adb_server()
+    print("【info】正在重启adb-server...")
+    time.sleep(10)
+
+    # 判断哪些设备已经连接
+    devices = get_phone_config()
+    devices = is_connect_devices(devices)
+    if devices is None:
+        print("【error】未发现已连接的设备，终止本次测试...")
+        return
 
     # 多线程运行appium-server
     ap, bp, sp = 4721, 4722, 4723   # appium-port, bootstrap-port, selendroid-port,
-    devices = get_phone_config()
     start_appium_servers(devices, ap=ap, bp=bp, sp=sp)
 
     # 等待10s,防止出现server没有启动完就运行case

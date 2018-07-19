@@ -48,8 +48,24 @@ def get_current_time(type="d"):
         format_str = "%Y-%m-%d-%H-%M-%S"
 
     return time.strftime(format_str, time.localtime(time.time()))
-    
-    
+
+
+def exec_cmd(cmd):
+    """
+    执行cmd命令并返回实时输出结果
+    :param cmd:
+    :return:
+    """
+    try:
+        r = os.popen(cmd)
+        text = r.read()
+        r.close()
+    except:
+        pass
+
+    return text
+
+
 if __name__ == "__main__":
     print(get_all_testcases(classpath="../case/", kw="test"))
 

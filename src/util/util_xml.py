@@ -19,7 +19,7 @@ def get_xml_root(path):
     return tree.getroot()
 
 
-def get_project_config(config_type="product", item="all"):
+def get_project_config(xml_path="./conf/project.xml", config_type="product", item="all"):
         """
         通过指定参数获取指定项目配置
         :param config_type: 配置文件类型 product local等
@@ -27,7 +27,7 @@ def get_project_config(config_type="product", item="all"):
         :return: {item1, item2}
         """
         result = {}
-        root = get_xml_root("./conf/project.xml")
+        root = get_xml_root(xml_path)
 
         # 遍历XML所有节点
         for child in root:
@@ -45,7 +45,7 @@ def get_project_config(config_type="product", item="all"):
         return result
 
 
-def get_phone_config(config_type="product", name="all"):
+def get_phone_config(xml_path="./conf/phone.xml", config_type="product", name="all"):
     """
         通过指定参数获取指定手机配置
         :param config_type: 配置文件类型 product local等
@@ -53,7 +53,7 @@ def get_phone_config(config_type="product", name="all"):
         :return: {server1, server2}
     """
     results = []
-    root = get_xml_root("./conf/phone.xml")
+    root = get_xml_root(xml_path)
 
     # 遍历XML所有节点
     for child in root:
@@ -87,9 +87,7 @@ def get_phone_config(config_type="product", name="all"):
     return results
 
 
-
 if __name__ == "__main__":
-    #print(get_project_config(config_type="local", item="all"))
-    #print(get_server_config(config_type="local", name="魅蓝"))
-    #print(get_phone_config(config_type="local", name="vivox6"))
+    print(get_project_config(xml_path="../../conf/project.xml", config_type="local", item="all"))
+    print(get_phone_config(xml_path="../../conf/phone.xml", config_type="product", name="all"))
     pass

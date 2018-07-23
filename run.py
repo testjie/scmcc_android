@@ -27,9 +27,9 @@ def start_appium_servers(devices, ap=4721, bp=4722, sp=4723):
     """
     线程
     :param devices:
-    :param ap:
-    :param bp:
-    :param sp:
+    :param ap:  appium-port
+    :param bp:  bootstrap-port
+    :param sp:  selendroid-port
     :return:
     """
     # 将每个设备的appium-server添加到线程池
@@ -74,7 +74,7 @@ def run_cases(devices=[], ap=4721):
         test_suites.addTests(test_suite)
 
         # 创建文件夹
-        floder_path = "./report/{}/".format(get_current_time())
+        floder_path = "./reports/{}/".format(get_current_time())
         if not os.path.exists(floder_path):
             os.makedirs(floder_path)
 

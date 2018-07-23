@@ -10,6 +10,7 @@
 #### 4. 持续优化
     1. 测试结果报告截图
     2. 自动发送邮件
+    3. 扩展关键字驱动
 
 #### 5. 问题
     1. 禁止appium重复安装Unlock、Setting、Android Input Manager等apk，防止第三方rom出现弹窗提示的问题

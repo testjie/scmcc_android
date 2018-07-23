@@ -10,10 +10,10 @@ class AppiumServer:
     def __init__(self, url="127.0.0.1", ap=4723, bp=5723, sp=6723, conn_type="usb"):
         self.bp = bp
         self.sp = sp
-        self.url = url
         self.ap = ap
         self.bp = bp
         self.sp = sp
+        self.url = url
         self.conn_type = conn_type
 
     def start_server(self):

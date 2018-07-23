@@ -44,3 +44,8 @@
 
     2. driver.close() 出现报错，待解决
     selenium.common.exceptions.WebDriverException: Message: Method has not yet been implemented
+    
+    3. vivo解锁失败，屏幕亮，不解锁 todo
+    
+    4. 安装弹窗问题的更优解：
+    https://testerhome.com/topics/2601

@@ -6,6 +6,7 @@ import time
 import unittest
 import threading
 
+from src.util.util_logger import logger
 from src.util.util_xml import get_phone_config
 from src.util.util_adb import restart_adb_server
 from src.util.util_adb import is_connect_devices
@@ -69,7 +70,7 @@ def run_cases(devices=[], ap=4721):
                 test_suite.append(ParametrizedTestCase.parametrize(eval(v), driver))
 
         # 将case添加进线程池
-        print("设备【{}】添加所有用例成功!".format(device["band"]))
+        logger.info("设备【{}】添加所有用例成功!".format(device["band"]))
         test_suites.addTests(test_suite)
 
         # 创建文件夹
@@ -94,20 +95,17 @@ def run_cases(devices=[], ap=4721):
         t.join()
 
 
-    print()
-
-
 def run():
     # 重启adb server 防止adb for windows抽风
     restart_adb_server()
-    print("【info】正在重启adb-server...")
+    logger.info("正在重启adb-server...")
     time.sleep(10)
 
     # 判断哪些设备已经连接
     devices = get_phone_config()
     devices = is_connect_devices(devices)
     if devices is None:
-        print("【error】未发现已连接的设备，终止本次测试...")
+        logger.error("未发现已连接的设备，终止本次测试...")
         return
 
     # 多线程运行appium-server

@@ -9,6 +9,7 @@ class TestCaseLogin(ParametrizedTestCase):
     def setUp(self):
         ParametrizedTestCase.setUp(self)
         assert self.driver is not None
+        self.driver.press_keycode(26)
 
     def test_login_success(self):
         assert self.driver is not None

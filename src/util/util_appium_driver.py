@@ -28,3 +28,4 @@ if __name__ == "__main__":
     phone = get_phone_config(config_type="local", name="魅蓝")[0]
     appium_driver = AppiumDriver(phone["device_name"], phone["platform_name"],
                                  phone["platform_version"], phone["app_package"], phone["app_activity"], phone["url"])
+

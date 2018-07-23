@@ -2,7 +2,6 @@
 __author__ = 'snake'
 
 import os
-import threading
 from src.util.util_xml import get_project_config
 
 

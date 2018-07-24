@@ -9,6 +9,7 @@ import threading
 from src.util.util_logger import logger
 from src.util.util_xml import get_phone_config
 from src.util.util_adb import restart_adb_server
+from src.util.util_adb import adb_slide_unlock
 from src.util.util_adb import is_connect_devices
 from src.util.util_common import get_current_time
 from src.util.util_common import get_all_testcases
@@ -57,7 +58,10 @@ def run_cases(devices=[], ap=4721):
         app_activity = device["app_activity"]
         platform_name = device["platform_name"]
         platform_version = device["platform_version"]
-        url = "http://localhost:" + str(ap) + "/wd/hub"
+        url = "http://localhost:{}/wd/hub".format(str(ap))
+
+        # 使用滑动解锁
+        adb_slide_unlock(uuid=device_name, slide_dire="up")
 
         # 获取driver对象
         ad = AppiumDriver(device_name, platform_name, platform_version, app_package, app_activity, url)
@@ -66,7 +70,7 @@ def run_cases(devices=[], ap=4721):
         # 分别添加每一个设备的suite
         for case in get_all_testcases(classpath="./src/case/"):
             for k, v in case.items():
-                exec("from src.case." + k + " import " + v)
+                exec("from src.case.{} import {}".format(k, v))
                 test_suite.append(ParametrizedTestCase.parametrize(eval(v), driver))
 
         # 将case添加进线程池

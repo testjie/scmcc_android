@@ -82,7 +82,36 @@ def is_connect_devices(devices):
     return list_dev
 
 
+def adb_slide_unlock(uuid="", slide_dire="UP"):
+    """
+    使用adb命令模拟滑动解锁，vivo需要在开发者选项中中开启USB模拟点击
+    :param slide_dire: UP:上滑 / DOWN: 下滑 / RIGHT: 右滑 / LEFG: 左滑; uuid: 设备序列号
+    :return:
+    """
+    cmds = []
+    if "state=OFF" in exec_cmd("adb shell dumpsys power"):  # 判断屏幕是否亮
+        cmds.append("adb shell input keyevent 26")  # 模拟电源键
+    if uuid == "":
+        slide_cmd = "adb shell input touchscreen swipe"
+    else:
+        slide_cmd = "adb {} shell input touchscreen swipe".format("-s " + uuid)
+
+    if slide_dire.upper() == "UP":
+        cmds.append(slide_cmd + " 600 1000 600 300")
+    if slide_dire.upper() == "DOWN":
+        cmds.append(slide_cmd + " 600 300 600 1000")
+    if slide_dire.upper() == "RIGHT":
+        cmds.append(slide_cmd + " 100 300 600 300")
+    if slide_dire.upper() == "LEFT":
+        cmds.append(slide_cmd + "600 300 100 300")
+
+    for cmd in cmds:
+        exec_cmd(cmd)
+
+
 if __name__ == "__main__":
-    from src.util.util_xml import get_phone_config
-    devices = get_phone_config(xml_path="../../conf/phone.xml")
-    print(is_connect_devices(devices))
+    # from src.util.util_xml import get_phone_config
+    # devices = get_phone_config(xml_path="../../conf/phone.xml")
+    # print(is_connect_devices(devices))
+
+    adb_slide_unlock(slide_dire="up")

@@ -89,29 +89,35 @@ def adb_slide_unlock(uuid="", slide_dire="UP"):
     :return:
     """
     cmds = []
-    if "state=OFF" in exec_cmd("adb shell dumpsys power"):  # 判断屏幕是否亮
-        cmds.append("adb shell input keyevent 26")  # 模拟电源键
     if uuid == "":
+        display_power = "adb shell dumpsys power"
+        screen_power = "adb shell input keyevent 26"
         slide_cmd = "adb shell input touchscreen swipe"
     else:
+        display_power = "adb {} shell dumpsys power".format("-s " + uuid)
+        screen_power = "adb {} shell input keyevent 26".format("-s " + uuid)
         slide_cmd = "adb {} shell input touchscreen swipe".format("-s " + uuid)
 
+    # 判断屏幕是否亮并模拟电源键点亮屏幕
+    if "Display Power: state=OFF" in exec_cmd(display_power):
+        cmds.append(screen_power)
+
+    # 模拟上下左右滑动解锁
     if slide_dire.upper() == "UP":
-        cmds.append(slide_cmd + " 600 1000 600 300")
+        cmds.append(slide_cmd + " 600 1000 600 1")
     if slide_dire.upper() == "DOWN":
-        cmds.append(slide_cmd + " 600 300 600 1000")
+        cmds.append(slide_cmd + " 600 1 600 1000")
     if slide_dire.upper() == "RIGHT":
-        cmds.append(slide_cmd + " 100 300 600 300")
+        cmds.append(slide_cmd + " 1 300 600 300")
     if slide_dire.upper() == "LEFT":
-        cmds.append(slide_cmd + "600 300 100 300")
+        cmds.append(slide_cmd + "600 300 1 300")
 
     for cmd in cmds:
         exec_cmd(cmd)
 
 
 if __name__ == "__main__":
-    # from src.util.util_xml import get_phone_config
-    # devices = get_phone_config(xml_path="../../conf/phone.xml")
-    # print(is_connect_devices(devices))
-
-    adb_slide_unlock(slide_dire="up")
+    from src.util.util_xml import get_phone_config
+    devices = get_phone_config(xml_path="../../conf/phone.xml")
+    for device in is_connect_devices(devices):
+        adb_slide_unlock(device["device_name"], slide_dire="up")

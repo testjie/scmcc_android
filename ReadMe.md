@@ -50,3 +50,21 @@
     
     4. 安装弹窗问题的更优解：
     https://testerhome.com/topics/2601
+    
+    5. # htmltestrunner多线程问题
+    a. 
+        Exception in thread Thread-4:
+        Traceback (most recent call last):
+          File "C:\Program Files\Python36\lib\threading.py", line 916, in _bootstrap_inner
+            self.run()
+          File "C:\Program Files\Python36\lib\threading.py", line 864, in run
+            self._target(*self._args, **self._kwargs)
+          File "C:\Program Files\Python36\lib\unittest\runner.py", line 176, in run
+            test(result)
+          File "C:\Program Files\Python36\lib\unittest\suite.py", line 84, in __call__
+            return self.run(*args, **kwds)
+          File "C:\Program Files\Python36\lib\unittest\suite.py", line 122, in run
+            test(result)
+        TypeError: 'NoneType' object is not callable
+    b. 测试结果会保存在一个html里面
+    目前卡在htmltestrunner746行

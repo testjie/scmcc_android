@@ -110,7 +110,7 @@ def adb_slide_unlock(uuid="", slide_dire="UP"):
     if slide_dire.upper() == "RIGHT":
         cmds.append(slide_cmd + " 1 300 600 300")
     if slide_dire.upper() == "LEFT":
-        cmds.append(slide_cmd + "600 300 1 300")
+        cmds.append(slide_cmd + " 600 300 1 300")
 
     for cmd in cmds:
         exec_cmd(cmd)
@@ -120,4 +120,4 @@ if __name__ == "__main__":
     from src.util.util_xml import get_phone_config
     devices = get_phone_config(xml_path="../../conf/phone.xml")
     for device in is_connect_devices(devices):
-        adb_slide_unlock(device["device_name"], slide_dire="up")
+        adb_slide_unlock(device["device_name"], slide_dire="right")

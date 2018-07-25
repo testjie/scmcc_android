@@ -83,7 +83,7 @@ def run_cases(devices=[], ap=4721):
             os.makedirs(floder_path)
 
         # 使用htmltestrunner执行cases
-        retry = 1
+        retry = 0
         report_desc = "【{}】for掌厅测试描述".format(device["band"])
         report_title = "【{}】for掌厅测试报告".format(device["band"])
         fb = open(floder_path + device["band"] + "-report.html", "wb+")

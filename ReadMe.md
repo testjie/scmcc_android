@@ -1,5 +1,5 @@
 ### scmcc_android
-    基于appium-python的安卓app自动化测试框架
+    基于appium-python的安卓app自动化测试框架-支持单机
 
 #### 1. 项目简介
 
